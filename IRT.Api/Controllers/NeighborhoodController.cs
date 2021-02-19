@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using IRT.Application.Interfaces;
+using IRT.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,11 +13,16 @@ namespace IRT.Api.Controllers
     //[Authorize]
     public class NeighborhoodController : ApiController
     {
+        private readonly IAppNeighborhood _appNeighborhood;
+        public NeighborhoodController(IAppNeighborhood appNeighborhood)
+        {
+            _appNeighborhood = appNeighborhood;
+        }
         // GET: api/<NeighborhoodController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<Neighborhood>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await _appNeighborhood.GetAll();
         }
 
         // GET api/<NeighborhoodController>/5

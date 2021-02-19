@@ -24,10 +24,10 @@ namespace IRT.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Login = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Login = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Password = table.Column<string>(type: "varchar(50)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,6 +54,11 @@ namespace IRT.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "Login", "Name", "Password" },
+                values: new object[] { new Guid("fb84f62a-262d-4e48-82d0-00a171b49528"), "admin@instituto.com", "admin", "Evaluator", "72ac31325b6faff1720a1f9d4d527c9c" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Drugstores_NeighborhoodId",
