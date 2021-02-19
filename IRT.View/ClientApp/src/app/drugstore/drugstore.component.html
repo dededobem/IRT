@@ -1,0 +1,24 @@
+<h1 id="tableLabel">Drugstore list</h1>
+<br>
+<p *ngIf="!drugstores"><em>Loading...</em></p>
+
+<button class="btn btn-primary">New Drugstore</button>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="drugstores">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Round the clock?</th>
+      <th>Foundation date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let drugstore of drugstores">
+      <td>{{ drugstore.id }}</td>
+      <td>{{ drugstore.name }}</td>
+      <td>{{ drugstore.flgRoundTheClock }}</td> 
+      <td>{{ drugstore.foundationDate }}</td>      
+    </tr>
+  </tbody>
+</table>
