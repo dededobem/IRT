@@ -23,7 +23,7 @@ namespace IRT.Infrastructure.Repository
             await _dbContext.Drugstores.AnyAsync(x => x.Name == name);
 
         public async Task<IEnumerable<Drugstore>> GetByName(string name, int take) =>
-            name == null ? await _dbContext.Drugstores.ToListAsync() :
+            name == null ? await _dbContext.Drugstores.Take(take).ToListAsync() :
             await _dbContext.Drugstores
             .Where(x => EF.Functions.Like(x.Name, $"%{name}%"))
             .Take(take)

@@ -25,7 +25,7 @@ namespace IRT.Infrastructure.Repository
             await _dbContext.Neighborhoods.Include(x => x.Drugstores).ToListAsync();
 
         public async Task<IEnumerable<Neighborhood>> GetByName(string name, int take) =>
-            name == null ? await _dbContext.Neighborhoods.Include(x => x.Drugstores).ToListAsync() :
+            name == null ? await _dbContext.Neighborhoods.Include(x => x.Drugstores).Take(take).ToListAsync() :
             await _dbContext.Neighborhoods.Include(x => x.Drugstores)
                 .Where(x => EF.Functions.Like(x.Name, $"%{name}%")).Take(take).ToListAsync();
 
