@@ -5,9 +5,6 @@ using IRT.Infrastructure.Data;
 using IRT.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IRT.Infrastructure.IoC
 {
@@ -26,6 +23,8 @@ namespace IRT.Infrastructure.IoC
 
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddScoped(typeof(IAppUser), typeof(AppUser));
+            
+            services.AddScoped(typeof(IAppAuthentication), typeof(AppAuthentication));
         }
     }
 }

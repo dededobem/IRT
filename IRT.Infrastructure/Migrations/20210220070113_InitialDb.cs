@@ -40,7 +40,7 @@ namespace IRT.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    FlgRoundTheClock = table.Column<bool>(nullable: false),
+                    RoundTheClock = table.Column<bool>(nullable: false),
                     FoundationDate = table.Column<DateTime>(nullable: false),
                     NeighborhoodId = table.Column<Guid>(nullable: false)
                 },
@@ -51,14 +51,13 @@ namespace IRT.Infrastructure.Migrations
                         name: "FK_Drugstores_Neighborhoods_NeighborhoodId",
                         column: x => x.NeighborhoodId,
                         principalTable: "Neighborhoods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "Login", "Name", "Password" },
-                values: new object[] { new Guid("fb84f62a-262d-4e48-82d0-00a171b49528"), "admin@instituto.com", "admin", "Evaluator", "72ac31325b6faff1720a1f9d4d527c9c" });
+                values: new object[] { new Guid("948564b2-64cd-4f4d-a5a9-18ed9258c24a"), "admin@instituto.com", "admin", "Evaluator", "EAAD67247DAE6930C717853DB634DB29" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Drugstores_NeighborhoodId",

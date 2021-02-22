@@ -1,16 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IRT.Domain.Entities
 {
-    public class Drugstore
+    public class Drugstore : EntityBase
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool FlgRoundTheClock { get; set; }
-        public DateTime FoundationDate { get; set; }
-        public Guid NeighborhoodId { get; set; }
-        public Neighborhood Neighborhood { get; set; }
+        public Drugstore(Guid id, string name, bool roundTheClock, DateTime foundationDate, Guid neighborhoodId) : base(id)
+        {
+            Name = name;
+            RoundTheClock = roundTheClock;
+            FoundationDate = foundationDate;
+            NeighborhoodId = neighborhoodId;
+        }
+        protected Drugstore() { }
+
+        public string Name { get; private set; }
+        public bool RoundTheClock { get; private set; }
+        public DateTime FoundationDate { get; private set; }
+        public Guid NeighborhoodId { get; private set; }
+        public Neighborhood Neighborhood { get; private set; }
+
+        public bool CanRemove() => (DateTime.Today - FoundationDate).TotalDays >= 365;
     }
 }

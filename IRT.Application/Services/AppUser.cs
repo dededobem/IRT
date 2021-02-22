@@ -1,9 +1,11 @@
 ﻿using IRT.Application.Interfaces;
+using IRT.Application.ViewModels;
 using IRT.Domain.Entities;
 using IRT.Domain.Interfaces;
+using IRT.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IRT.Application.Services
@@ -16,16 +18,21 @@ namespace IRT.Application.Services
         {
             _contextUser = contextUser;
         }
-        public void Add(User entity) => _contextUser.Add(entity);
 
-        public void Delete(User entity) => _contextUser.Delete(entity);
+        public async Task<UserViewModel> Add(UserViewModel user)
+        {
+            await _contextUser.Add(new User(Guid.NewGuid(), user.Name, user.Login, user.Email, user.Password));
+            return user;
+        }
 
-        public Task<IEnumerable<User>> GetAll() => _contextUser.GetAll();
+        public async Task<IEnumerable<UserViewModel>> GetAll() =>
+            (await _contextUser.GetAll()).Select(x => new UserViewModel(x));        
 
-        public Task<User> GetById(Guid id) => _contextUser.GetById(id);
-
-        public void Update(User entity) => _contextUser.Update(entity);
-
-        public User VerifyUser(User user) => _contextUser.VerifyUser(user);
+        public async Task<UserViewModel> VerifyUser(string login, string password)
+        {
+            var user = await _contextUser.VerifyUser(login, new Password(password));
+            return user == null ? null : new UserViewModel(user);
+        }
+            
     }
 }

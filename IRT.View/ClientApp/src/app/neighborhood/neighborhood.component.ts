@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Neighborhood, ResponseNeighborhoods } from './neighborhood.model';
+import { NeighborhoodService } from './neighborhood.service';
 
 @Component({
   selector: 'app-neighborhood',
@@ -8,18 +9,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class NeighborhoodComponent implements OnInit {
 
-  /* public neighborhoods: Neighborhood[];
-
-  url = 'https://localhost:44384/api/neighborhood';
+  responseNeighborhoods: ResponseNeighborhoods;
   
-  constructor(http: HttpClient) {
-    http.get<Neighborhood[]>(this.url).subscribe(result => {
-      this.neighborhoods = result;
-    }, error => console.error(error));
-  } */
+  constructor(private neighborhoodService: NeighborhoodService) {}
 
-  ngOnInit(): void {
-    
+  ngOnInit() {
+    this.neighborhoodService.getNeighborhood().
+      subscribe(res => 
+        this.responseNeighborhoods = res
+    );
   }
 
 }

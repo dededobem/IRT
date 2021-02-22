@@ -1,14 +1,15 @@
-﻿using IRT.Domain.Interfaces.Base;
+﻿using IRT.Domain.Entities;
+using IRT.Domain.Interfaces.Base;
 using IRT.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IRT.Infrastructure.Repository.Base
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : EntityBase
     {
         private readonly IRTDbContext _context;
         private readonly DbSet<T> _dbSet;
@@ -19,34 +20,30 @@ namespace IRT.Infrastructure.Repository.Base
             _dbSet = context.Set<T>();
         }
 
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
-            _dbSet.Add(entity);
-            _context.SaveChanges();
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(T entity)
-        {            
+        public async Task Delete(T entity)
+        {
             _dbSet.Remove(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAll() => await _dbSet.ToListAsync();
+        public virtual async Task<IEnumerable<T>> GetAll() => await _dbSet.ToListAsync();
 
-        public async Task<T> GetById(Guid id) => await _dbSet.FindAsync(id);
+        public async Task<T> GetById(Guid id) => 
+            await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
-            try
-            {
-                _dbSet.Attach(entity);
-                _context.Entry(entity).State = EntityState.Modified;
-                _context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
+
 }
+

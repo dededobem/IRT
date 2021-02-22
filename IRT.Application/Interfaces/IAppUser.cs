@@ -1,11 +1,11 @@
 ﻿using IRT.Application.Interfaces.Base;
-using IRT.Domain.Entities;
+using IRT.Application.ViewModels;
 using System.Threading.Tasks;
 
 namespace IRT.Application.Interfaces
 {
-    public interface IAppUser : IApplication<User>
+    public interface IAppUser : IApplication<UserViewModel>
     {
-        User VerifyUser(User user);
+        Task<UserViewModel> VerifyUser(string login, string password);
     }
 }

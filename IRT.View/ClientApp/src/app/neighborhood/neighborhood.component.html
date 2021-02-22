@@ -1,17 +1,15 @@
 <h1 id="tableLabel">Neighborhood list</h1>
 <br>
-<p *ngIf="!neighborhoods"><em>Loading...</em></p>
+<p *ngIf="!responseNeighborhoods"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="neighborhoods">
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="responseNeighborhoods">
   <thead>
-    <tr>
-      <th>Id</th>
+    <tr>      
       <th>Name</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let neighborhood of neighborhoods">
-      <td>{{ neighborhood.id }}</td>
+    <tr *ngFor="let neighborhood of responseNeighborhoods">
       <td>{{ neighborhood.name }}</td>      
     </tr>
   </tbody>

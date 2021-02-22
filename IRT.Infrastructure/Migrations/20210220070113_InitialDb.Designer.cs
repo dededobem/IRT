@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRT.Infrastructure.Migrations
 {
     [DbContext(typeof(IRTDbContext))]
-    [Migration("20210219014930_InitialDb")]
+    [Migration("20210220070113_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,15 +21,12 @@ namespace IRT.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("IRT.Domain.Entities.Drugstore", b =>
+            modelBuilder.Entity("IRT.Domain.Entities.DrugstoreViewModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("Id")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("FlgRoundTheClock")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("FoundationDate")
                         .HasColumnType("datetime2");
@@ -41,6 +38,9 @@ namespace IRT.Infrastructure.Migrations
 
                     b.Property<Guid>("NeighborhoodId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("RoundTheClock")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -100,20 +100,20 @@ namespace IRT.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fb84f62a-262d-4e48-82d0-00a171b49528"),
+                            Id = new Guid("948564b2-64cd-4f4d-a5a9-18ed9258c24a"),
                             Email = "admin@instituto.com",
                             Login = "admin",
                             Name = "Evaluator",
-                            Password = "72ac31325b6faff1720a1f9d4d527c9c"
+                            Password = "72AC31325B6FAFF1720A1F9D4D527C9C"
                         });
                 });
 
-            modelBuilder.Entity("IRT.Domain.Entities.Drugstore", b =>
+            modelBuilder.Entity("IRT.Domain.Entities.DrugstoreViewModel", b =>
                 {
                     b.HasOne("IRT.Domain.Entities.Neighborhood", "Neighborhood")
-                        .WithMany()
+                        .WithMany("Drugstores")
                         .HasForeignKey("NeighborhoodId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

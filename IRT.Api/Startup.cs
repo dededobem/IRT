@@ -1,14 +1,18 @@
+using IRT.Api.Configurations;
 using IRT.Infrastructure.Data;
 using IRT.Infrastructure.IoC;
+using IRT.Infrastructure.Util;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace IRT.Api
 {
@@ -42,17 +46,38 @@ namespace IRT.Api
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey =
-                        new SymmetricSecurityKey(
-                            Convert.FromBase64String(Configuration["Authentication:SecretKey"])),
+                        new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Authentication:SecretKey"])),
                     RequireExpirationTime = true,
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+                x.Events = new JwtBearerEvents()
+                {
+                    OnAuthenticationFailed = r =>
+                    {
+                        r.NoResult();
+                        r.Response.StatusCode = 500;
+                        r.Response.ContentType = "text/plain";
+                        return r.Response.WriteAsync(r.Exception.ToString());
+                    },
+                    OnChallenge = context =>
+                    {
+                        context.HandleResponse();
+                        context.Response.StatusCode = 401;
+                        context.Response.ContentType = "application/json";
+                        var result = JsonConvert.SerializeObject(new Response<string>("You are not Authorized"));
+                        return context.Response.WriteAsync(result);
+                    },
+                };
             });
 
-            //services.AddAutoMapper(typeof(Startup));
+            services.AddSwaggerConfiguration();
 
-            services.AddControllers();
+            services.AddHttpContextAccessor();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            );
 
             RegisterServices(services, Configuration.GetConnectionString("IRTApiConnection"));
         }
@@ -75,12 +100,15 @@ namespace IRT.Api
                 .AllowAnyHeader()
             );
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwaggerSetup();
         }
 
         private static void RegisterServices(IServiceCollection services, string connection)

@@ -1,4 +1,5 @@
 ﻿using IRT.Domain.Entities;
+using IRT.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -24,11 +25,12 @@ namespace IRT.Infrastructure.Mappings
             builder.Property(c => c.Email)
                 .HasColumnType("varchar(100)")
                 .HasMaxLength(100)
+                .HasConversion(c => c.ToString(), c => new Email(c))
                 .IsRequired();
 
             builder.Property(c => c.Password)
                 .HasColumnType("varchar(50)")
-                .HasMaxLength(500)
+                .HasMaxLength(50)
                 .IsRequired();
 
         }

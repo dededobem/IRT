@@ -19,7 +19,12 @@ namespace IRT.Infrastructure.Mappings
                 .HasMaxLength(100)
                 .IsRequired();
 
-            //inserir o relacionamento aqui tb?
+            builder.HasOne(c => c.Neighborhood)
+                .WithMany(c => c.Drugstores)
+                .HasForeignKey(c => c.NeighborhoodId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
+                   
         }
     }
 }

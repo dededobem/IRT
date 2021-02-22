@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace IRT.Domain.Entities
 {
-    public class Neighborhood
+    public class Neighborhood : EntityBase
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        protected Neighborhood() { }
+        public Neighborhood(Guid id, string name) : base(id) => Name = name;
+
+        public string Name { get; private set; }
+
+        public ICollection<Drugstore> Drugstores { get; private set; }
+        public int GetCountDrugstore() => Drugstores.Count();
+        public int GetCountDrugstoreRoundTheClock() => Drugstores.Where(d => d.RoundTheClock).Count();        
+
     }
 }

@@ -2,10 +2,7 @@
 using IRT.Domain.Interfaces;
 using IRT.Infrastructure.Data;
 using IRT.Infrastructure.Repository.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace IRT.Infrastructure.Repository
@@ -18,14 +15,7 @@ namespace IRT.Infrastructure.Repository
             _dbContext = context;
         }
 
-        public User VerifyUser(User user)
-        {
-            var _user = _dbContext.Users.FirstOrDefault(x => x.Login == user.Login && x.Password == user.Password);
-            if (_user != null)
-            {
-                return _user;
-            }
-            return null;
-        }
+        public async Task<User> VerifyUser(string login, string password) =>
+            await _dbContext.Users.FirstOrDefaultAsync(x => x.Login == login && x.Password == password);        
     }
 }

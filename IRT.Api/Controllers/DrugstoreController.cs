@@ -1,16 +1,16 @@
-﻿using IRT.Application.Interfaces;
-using IRT.Domain.Entities;
+﻿using IRT.Api.Models;
+using IRT.Application.Interfaces;
+using IRT.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IRT.Api.Controllers
 {
     [Route("api/[controller]")]
     //[Authorize]
-    public class DrugstoreController : ApiController
+    public class DrugstoreController : ControllerBase
     {
         private readonly IAppDrugstore _appDrugstore;
 
@@ -18,38 +18,38 @@ namespace IRT.Api.Controllers
 
         // GET: api/<DrugstoreController>
         [HttpGet]
-        public async Task<IEnumerable<Drugstore>> Get()
+        public async Task<IActionResult> Get([FromQuery] Parameter<RequestDrusgtore> parameter)
         {
-            return await _appDrugstore.GetAll();
-        }
-
-        // GET api/<DrugstoreController>/5
-        [HttpGet("{id:guid}")]
-        public async Task<Drugstore> Get(Guid id)
-        {
-            return await _appDrugstore.GetById(id);
+            return new OkObjectResult(await _appDrugstore.GetByName(parameter.Filter?.Name, parameter.MaxResults));
         }
 
         // POST api/<DrugstoreController>
         [HttpPost]
-        public void Post([FromBody] Drugstore drugstore)
+        public async Task<IActionResult> Post([FromBody] DrugstoreViewModel drugstore)
         {
-            _appDrugstore.Add(drugstore);
+            return Ok(await _appDrugstore.Add(drugstore));
         }
 
         // PUT api/<DrugstoreController>/5
-        [HttpPut]
-        public void Put([FromBody] Drugstore drugstore)
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] DrugstoreViewModel drugstore)
         {
-            _appDrugstore.Update(drugstore);
-
+            return Ok(await _appDrugstore.Update(id, drugstore));
         }
 
         // DELETE api/<DrugstoreController>/5
-        [HttpDelete]
-        public void Delete([FromBody] Drugstore drugstore)
+        [HttpDelete("{id}")]
+        public async Task Delete(Guid id)
         {
-            _appDrugstore.Delete(drugstore);
+            await _appDrugstore.Delete(id);
         }
+
+        // GET: api/<DrugstoreController>
+        [HttpGet("{id_neighborhood}")]
+        public async Task<IActionResult> GetByNeighborhood(Guid id_neighborhood, RequestDrugstoreNeighborhood parameter)
+        {
+            return new OkObjectResult(await _appDrugstore.GetByNeighborhood(id_neighborhood, parameter.flgRoundTheClock));
+        }
+
     }
 }
