@@ -9,7 +9,7 @@ namespace IRT.Domain.ValueObjects
         private readonly string _email;
         public Email(string email)
         {
-            if (string.IsNullOrWhiteSpace(email)) throw new Exception();
+            if (string.IsNullOrWhiteSpace(email)) throw new Exception("E-mail is required!");
                 _email = email;
         }
 

@@ -1,5 +1,6 @@
 ﻿using IRT.Domain.ValueObjects;
 using System;
+using System.Net.Mail;
 
 namespace IRT.Domain.Entities
 {
@@ -23,7 +24,23 @@ namespace IRT.Domain.Entities
 
         private void Validate()
         {
-            Login = Login ?? throw new Exception("Login is required!");
+            Name = Name.ToString() == "" ? throw new Exception("Name is required!") : Name;
+            Login = Login == "" ? throw new Exception("Login is required!") : Login;
+            Email = IsValidEmail(Email) ? Email : throw new Exception("Incorrect e-mail format!");
+            Password = Password == "" ? throw new Exception("Password is required!") : Password;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var mail = new MailAddress(email);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

@@ -10,6 +10,8 @@ namespace IRT.Domain.Entities
             RoundTheClock = roundTheClock;
             FoundationDate = foundationDate;
             NeighborhoodId = neighborhoodId;
+
+            Validate();
         }
         protected Drugstore() { }
 
@@ -20,5 +22,13 @@ namespace IRT.Domain.Entities
         public Neighborhood Neighborhood { get; private set; }
 
         public bool CanRemove() => (DateTime.Today - FoundationDate).TotalDays >= 365;
+
+        public void Validate()
+        {
+            Name = Name == "" ? throw new Exception("Name is required!") : Name;
+            RoundTheClock = RoundTheClock ? throw new Exception("Round the clock is required!") : RoundTheClock;
+            FoundationDate = FoundationDate.ToString() == "" ? throw new Exception("Foundation Date is required!") : FoundationDate;
+            NeighborhoodId = NeighborhoodId.ToString() == "" ? throw new Exception("Neighborhood id is required!") : NeighborhoodId;
+        }
     }
 }

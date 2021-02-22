@@ -17,6 +17,11 @@ namespace IRT.Api.Controllers
             _appAuthentication = appAuthentication;
         }
 
+        /// <summary>
+        /// Autenticar na aplicação
+        /// </summary>
+        /// <param name="user">Dados da autenticação</param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] RequestAuthentication user)

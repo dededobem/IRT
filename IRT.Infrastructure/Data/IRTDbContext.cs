@@ -19,8 +19,6 @@ namespace IRT.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new DrugstoreMap());
             modelBuilder.ApplyConfiguration(new NeighborhoodMap());
             modelBuilder.ApplyConfiguration(new UserMap());
-
-            modelBuilder.Seed();
         }
     }
 }

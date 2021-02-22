@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
 
 namespace IRT.Api.Configurations
 {
@@ -19,6 +21,11 @@ namespace IRT.Api.Configurations
                     Title = "Instituto API",
                     Description = "API desenvolvida através de um desafio técnico.",                    
                 });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                s.IncludeXmlComments(xmlPath);
 
                 s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -56,7 +63,7 @@ namespace IRT.Api.Configurations
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Instituto API v1");
-            });
+            });            
         }
     }
 }

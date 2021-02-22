@@ -8,6 +8,6 @@ namespace IRT.Api.Models
 {
     public class RequestDrugstoreNeighborhood
     {        
-        public bool? flgRoundTheClock { get; set; }
+        public bool? FlgRoundTheClock { get; set; }
     }
 }

@@ -13,10 +13,12 @@ namespace IRT.Application.Services
     public class AppDrugstore : IAppDrugstore
     {
         private readonly IDrugstoreRepository _contextDrugstore;
+        private readonly INeighborhoodRepository _contextNeighborhood;
 
-        public AppDrugstore(IDrugstoreRepository contextDrugstore)
+        public AppDrugstore(IDrugstoreRepository contextDrugstore, INeighborhoodRepository contextNeighborhood)
         {
             _contextDrugstore = contextDrugstore;
+            _contextNeighborhood = contextNeighborhood;
         }
 
         public async Task<DrugstoreViewModel> Add(DrugstoreViewModel drugstore)
@@ -47,8 +49,13 @@ namespace IRT.Application.Services
         public async Task<IEnumerable<DrugstoreViewModel>> GetByName(string name, int take) =>
              (await _contextDrugstore.GetByName(name, take)).Select(x => new DrugstoreViewModel(x));
 
-        public async Task<IEnumerable<DrugstoreViewModel>> GetByNeighborhood(Guid name, bool? flgRoundTheClock) =>
-              (await _contextDrugstore.GetByNeighborhood(name, flgRoundTheClock)).Select(x => new DrugstoreViewModel(x));
+        public async Task<IEnumerable<DrugstoreViewModel>> GetByNeighborhood(Guid id, bool? flgRoundTheClock)
+        {
+            var neighborhood = await _contextNeighborhood.GetById(id);
+            if (neighborhood == null)
+                throw new ApiException("Neighborhood not found!");
+            return (await _contextDrugstore.GetByNeighborhood(id, flgRoundTheClock)).Select(x => new DrugstoreViewModel(x));
+        }
 
         public async Task<DrugstoreViewModel> Update(Guid id, DrugstoreViewModel drugstoreViewModel)
         {

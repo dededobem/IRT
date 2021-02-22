@@ -17,6 +17,11 @@ namespace IRT.Api.Controllers
             _appUser = appUser;
         }
 
+        /// <summary>
+        /// Cadastro de um novo usuário
+        /// </summary>
+        /// <param name="dataUser">Dados do usuário</param>
+        /// <returns></returns>
         // POST api/<UserController>
         [HttpPost]
         [AllowAnonymous]
