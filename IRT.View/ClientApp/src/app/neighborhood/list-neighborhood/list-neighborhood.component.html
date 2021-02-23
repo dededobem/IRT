@@ -1,5 +1,15 @@
 <h1 id="tableLabel">Neighborhood list</h1>
 <br>
+
+<!-- <div>
+  <label>Consultar bairro:
+    <input placeholder="Nome">
+  </label>
+  <label>Quantidade de resultados:
+    <input placeholder="Insira um número">
+  </label>
+</div> -->
+
 <p *ngIf="!responseNeighborhoods"><em>Loading...</em></p>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="responseNeighborhoods">

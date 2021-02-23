@@ -1,0 +1,20 @@
+<h2>Update Drugstore</h2>
+
+<div>
+    <label>Name:
+        <input placeholder="Insert name" [(ngModel)]="request.name">
+    </label>
+    <label>Round the Clock?
+        <input type="checkbox">
+    </label>
+    <label>Neighborhood:
+        <select>
+            <option>Pituba</option>
+            <option>Resgate</option>
+        </select>
+    </label>
+    <label>Name:
+        <input type="date">
+    </label>
+    <button (click)="update()">Update</button>
+</div>

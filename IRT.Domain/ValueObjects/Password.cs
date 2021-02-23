@@ -8,7 +8,7 @@ namespace IRT.Domain.ValueObjects
         private readonly string _password;
         public Password(string password)
         {
-            if (string.IsNullOrWhiteSpace(password)) throw new Exception();
+            if (string.IsNullOrWhiteSpace(password)) throw new Exception("Password is required!");
             _password = password.ToHashMD5();
         }
 

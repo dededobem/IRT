@@ -1,5 +1,6 @@
 ﻿using IRT.Domain.Entities;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace IRT.Application.ViewModels
 {
@@ -15,7 +16,8 @@ namespace IRT.Application.ViewModels
         }
 
         public int CountDrugstore { get; private set; }              
-        public Guid Id { get; set; }        
+        public Guid Id { get; set; }
+        [Required]
         public string Name { get; set; }
 
     }

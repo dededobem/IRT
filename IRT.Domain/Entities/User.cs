@@ -26,8 +26,7 @@ namespace IRT.Domain.Entities
         {
             Name = Name.ToString() == "" ? throw new Exception("Name is required!") : Name;
             Login = Login == "" ? throw new Exception("Login is required!") : Login;
-            Email = IsValidEmail(Email) ? Email : throw new Exception("Incorrect e-mail format!");
-            Password = Password == "" ? throw new Exception("Password is required!") : Password;
+            Email = IsValidEmail(Email) ? Email : throw new Exception("Incorrect e-mail format!");            
         }
 
         private bool IsValidEmail(string email)

@@ -12,3 +12,12 @@ export interface ResponseNeighborhoods {
     data: Neighborhood[];
 }
 
+export interface RequestCreate {
+    name: string;
+}
+
+export interface ResponseCreate {
+    id: string;
+    name: string;
+}
+

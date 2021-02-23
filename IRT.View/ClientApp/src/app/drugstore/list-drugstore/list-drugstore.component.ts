@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-drugstore',
-  templateUrl: './drugstore.component.html',
-  styleUrls: ['./drugstore.component.css']
+  selector: 'app-list-drugstore',
+  templateUrl: './list-drugstore.component.html',
+  styleUrls: ['./list-drugstore.component.css']
 })
-export class DrugstoreComponent implements OnInit {
+export class ListDrugstoreComponent implements OnInit {
 
   public drugstores: Drugstore[];
 

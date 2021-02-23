@@ -25,10 +25,9 @@ namespace IRT.Domain.Entities
 
         public void Validate()
         {
-            Name = Name == "" ? throw new Exception("Name is required!") : Name;
-            RoundTheClock = RoundTheClock ? throw new Exception("Round the clock is required!") : RoundTheClock;
-            FoundationDate = FoundationDate.ToString() == "" ? throw new Exception("Foundation Date is required!") : FoundationDate;
-            NeighborhoodId = NeighborhoodId.ToString() == "" ? throw new Exception("Neighborhood id is required!") : NeighborhoodId;
+            Name = String.IsNullOrEmpty(Name) ? throw new Exception("Name is required!") : Name;
+            FoundationDate = FoundationDate.Equals(DateTime.MinValue) ? throw new Exception("Foundation Date is required!") : FoundationDate;
+            NeighborhoodId = NeighborhoodId == Guid.Empty ? throw new Exception("Neighborhood id is required!") : NeighborhoodId;
         }
     }
 }
