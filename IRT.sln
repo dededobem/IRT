@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRT.View", "IRT.View\IRT.View.csproj", "{D9D3244B-12FD-4B81-9361-424002039D4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRT.Api", "IRT.Api\IRT.Api.csproj", "{34EAD822-E782-4116-BE11-77BEC2CF2FAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRT.Api", "IRT.Api\IRT.Api.csproj", "{34EAD822-E782-4116-BE11-77BEC2CF2FAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRT.Application", "IRT.Application\IRT.Application.csproj", "{83235756-7272-4242-973F-C502446694F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRT.Application", "IRT.Application\IRT.Application.csproj", "{83235756-7272-4242-973F-C502446694F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRT.Domain", "IRT.Domain\IRT.Domain.csproj", "{E66146AF-CBD5-4EC6-9232-3F2838BF7BEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRT.Domain", "IRT.Domain\IRT.Domain.csproj", "{E66146AF-CBD5-4EC6-9232-3F2838BF7BEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRT.Infrastructure", "IRT.Infrastructure\IRT.Infrastructure.csproj", "{69475886-D21D-4D07-B82F-3B45527FA0F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRT.Infrastructure", "IRT.Infrastructure\IRT.Infrastructure.csproj", "{69475886-D21D-4D07-B82F-3B45527FA0F0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRT.Infrastructure.IoC", "IRT.Infrastructure.IoC\IRT.Infrastructure.IoC.csproj", "{60F38D60-7427-49CD-941E-206B444C8996}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRT.Infrastructure.IoC", "IRT.Infrastructure.IoC\IRT.Infrastructure.IoC.csproj", "{60F38D60-7427-49CD-941E-206B444C8996}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D9D3244B-12FD-4B81-9361-424002039D4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9D3244B-12FD-4B81-9361-424002039D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9D3244B-12FD-4B81-9361-424002039D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9D3244B-12FD-4B81-9361-424002039D4F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34EAD822-E782-4116-BE11-77BEC2CF2FAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{34EAD822-E782-4116-BE11-77BEC2CF2FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34EAD822-E782-4116-BE11-77BEC2CF2FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
