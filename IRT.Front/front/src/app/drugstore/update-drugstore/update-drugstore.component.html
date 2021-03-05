@@ -1,0 +1,28 @@
+<h2>Atualizar Farmácia</h2>
+
+<div class="containers">
+    <form [formGroup]="updateDrugstore">
+        <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="Inserir nome" formControlName="nameControl" [(ngModel)]="request.name" required>
+        </mat-form-field>    
+        <mat-checkbox [(ngModel)]="request.roundTheClock" [ngModelOptions]="{standalone: true}">Funciona 24h?
+        </mat-checkbox>    
+        <mat-form-field appearance="outline">
+            <mat-label>Selecionar Bairro</mat-label>
+            <mat-select [(ngModel)]="request.neighborhoodId" formControlName="neighborhoodControl" required>
+                <ng-container *ngFor="let neighborhood of neighborhoods">
+                    <mat-option [value]="neighborhood.id">{{neighborhood.name}}</mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>        
+        <mat-form-field appearance="outline">
+            <mat-label>Data de Fundação</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="request.foundationDate" [ngModelOptions]="{standalone: true}">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>    
+        <button mat-raised-button color="primary" (click)="update()">Editar</button>
+        <button mat-raised-button (click)="back()">Voltar</button>
+    </form>
+</div>

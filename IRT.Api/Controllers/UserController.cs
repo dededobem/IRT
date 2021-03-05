@@ -1,5 +1,4 @@
-﻿using IRT.Api.Models;
-using IRT.Application.Interfaces;
+﻿using IRT.Application.Interfaces;
 using IRT.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 namespace IRT.Api.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize]
     public class UserController : ControllerBase
     {
         private readonly IAppUser _appUser;

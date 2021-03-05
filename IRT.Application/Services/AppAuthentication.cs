@@ -1,7 +1,5 @@
-﻿using IRT.Application.Exceptions;
-using IRT.Application.Interfaces;
+﻿using IRT.Application.Interfaces;
 using IRT.Application.ViewModels;
-using IRT.Domain.ValueObjects;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -24,7 +22,7 @@ namespace IRT.Application.Services
         public async Task<AccountViewModel> Authenticate(string login, string password)
         {
             var user = await _appUser.VerifyUser(login, password);
-            if (user == null) throw new ApiException("Login or password invalid.");
+            if (user == null) throw new Exception("Login ou senha inválida.");
 
             var token = GenerateToken(user);
             user.Password = "";

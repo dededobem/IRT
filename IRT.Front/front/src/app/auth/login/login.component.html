@@ -1,0 +1,37 @@
+<form name="form" (ngSubmit)="validate.form.valid && onSubmit()" #validate="ngForm" novalidate>
+  <div class="container">
+    <br>
+    <img class="mb-4 logo" src="/assets/images/logo.jpg" alt="" width="160" height="90">
+    <h1 class="h3 mb-3 font-weight-normal center">Insira suas credenciais</h1><br>
+    <mat-error *ngIf="validate.submitted && isLoginFailed">
+      <h4 class="errorLogin">Usuário ou senha inválidos</h4>
+    </mat-error>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <input matInput type="text" class="form-control" name="login" [(ngModel)]="form.login" required
+          #login="ngModel">
+        <mat-error *ngIf="login.errors && validate.submitted">
+          Login obrigatório
+        </mat-error>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <input matInput type="password" class="form-control" name="password" [(ngModel)]="form.password" required
+          minlength="6" #password="ngModel">
+        <mat-error *ngIf="password.errors && validate.submitted">
+          Senha obrigatória
+        </mat-error>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 25px;">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <button class="btn btn-lg btn-primary btn-block" [class.spinner]="isLoading"
+          [disabled]="isLoading">Entrar</button>
+      </div>
+    </div>
+  </div>
+</form>

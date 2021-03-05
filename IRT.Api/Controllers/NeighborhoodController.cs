@@ -24,11 +24,18 @@ namespace IRT.Api.Controllers
         /// <returns></returns>
         // GET api/<NeighborhoodController>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] Parameter<RequestNeighborhood> parameter)
-        {
-            return new OkObjectResult(await _appNeighborhood.GetByName(parameter.Filter?.Name, parameter.MaxResults));
-        }
+        [Route("/api/Neighborhood/GetByName")]
+        public async Task<IActionResult> Get([FromQuery] RequestNeighborhood parameter) =>
+            new OkObjectResult(await _appNeighborhood.GetByName(parameter.Name, parameter.MaxResults));        
 
+        /// <summary>
+        /// Retornar todos os Bairros
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/api/Neighborhood/GetAll")]
+        public async Task<IActionResult> Get() => new OkObjectResult(await _appNeighborhood.GetAll());
+        
         /// <summary>
         /// Cadastro de um novo Bairro
         /// </summary>
@@ -39,9 +46,7 @@ namespace IRT.Api.Controllers
         /// <returns></returns>
         // POST api/<NeighborhoodController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] NeighborhoodViewModel neighborhood)
-        {
-            return Ok(await _appNeighborhood.Add(neighborhood));
-        }
+        public async Task<IActionResult> Post([FromBody] NeighborhoodViewModel neighborhood) => Ok(await _appNeighborhood.Add(neighborhood));
+        
     }
 }

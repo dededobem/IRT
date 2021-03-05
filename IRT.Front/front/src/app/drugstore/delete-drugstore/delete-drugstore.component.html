@@ -1,0 +1,24 @@
+<h2>Tem certeza que deseja excluir esta farmácia?</h2>
+
+<div class="example-container">
+    <form>
+        <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput readonly value="{{drugstore.name}}">
+        </mat-form-field>
+        <mat-checkbox disabled [checked]="drugstore.roundTheClock ? true : false">Funciona 24h?</mat-checkbox>
+        <mat-form-field appearance="outline">
+            <mat-label>Bairro</mat-label>
+            <input matInput readonly value="{{drugstore.neighborhood.name}}">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Data de Fundação</mat-label>
+            <input readonly matInput [matDatepicker]="picker" [(ngModel)]="drugstore.foundationDate"
+                [ngModelOptions]="{standalone: true}">
+            <mat-datepicker-toggle matSuffix [for]="picker" disabled></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="delete()">Confirmar</button>
+        <button mat-raised-button (click)="cancel()">Cancelar</button>
+    </form>
+</div>

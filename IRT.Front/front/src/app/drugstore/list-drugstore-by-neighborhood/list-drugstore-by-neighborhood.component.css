@@ -1,0 +1,26 @@
+table {
+    width: 100%;  
+    margin-top: 20px;
+  }
+      
+  .btn {
+    margin-left: 9px;
+  }
+  
+  .container .mat-form-field {
+    width: 220px;
+    margin-left: 8px;
+  }
+
+  span {
+    font-weight: bold;
+    padding-left: 10px;
+    display: flex;
+    padding-top: 10px;
+  }
+  
+  .card-loading {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+  }

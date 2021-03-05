@@ -1,0 +1,11 @@
+.example-container {
+    width: 277px;
+  }
+
+  button {
+    margin-right: 8px;
+  }
+
+  mat-checkbox{
+    margin-bottom: 15px;
+  }

@@ -4,11 +4,12 @@ namespace IRT.Domain.Entities
 {
     public class Drugstore : EntityBase
     {
-        public Drugstore(Guid id, string name, bool roundTheClock, DateTime foundationDate, Guid neighborhoodId) : base(id)
+        public Drugstore(Guid id, string name, bool roundTheClock, DateTime foundationDate, Guid neighborhoodId, Neighborhood neighborhood) : base(id)
         {
             Name = name;
             RoundTheClock = roundTheClock;
             FoundationDate = foundationDate;
+            Neighborhood = neighborhood;
             NeighborhoodId = neighborhoodId;
 
             Validate();
@@ -21,7 +22,7 @@ namespace IRT.Domain.Entities
         public Guid NeighborhoodId { get; private set; }
         public Neighborhood Neighborhood { get; private set; }
 
-        public bool CanRemove() => (DateTime.Today - FoundationDate).TotalDays >= 365;
+        public bool CanRemove() => (DateTime.Today - FoundationDate).TotalDays < 365;
 
         public void Validate()
         {

@@ -1,5 +1,4 @@
-﻿using IRT.Application.Exceptions;
-using IRT.Application.Interfaces;
+﻿using IRT.Application.Interfaces;
 using IRT.Application.ViewModels;
 using IRT.Domain.Entities;
 using IRT.Domain.Interfaces;
@@ -24,14 +23,15 @@ namespace IRT.Application.Services
         public async Task<DrugstoreViewModel> Add(DrugstoreViewModel drugstore)
         {
             if (await _contextDrugstore.CheckIfExists(drugstore.Name))
-                throw new ApiException("Drugstore already exists!");
+                throw new Exception("Farmácia já cadastrada!");
             await _contextDrugstore
                 .Add(new Drugstore(
                     Guid.NewGuid(),
                     drugstore.Name,
                     drugstore.RoundTheClock,
                     drugstore.FoundationDate,
-                    drugstore.NeighborhoodId)
+                    drugstore.NeighborhoodId,
+                    drugstore.Neighborhood)
                 );
             return drugstore;
         }
@@ -40,11 +40,22 @@ namespace IRT.Application.Services
         {
             var drugstore = await _contextDrugstore.GetById(id);
             if (drugstore == null)
-                throw new ApiException("Drugstore not found!");
-            if (drugstore.CanRemove())
-                throw new ApiException("Drugstore cannot be removed. Foundation date more than 1 year");
+                throw new Exception("Bairro não encontrado!");
+            if (!drugstore.CanRemove())
+                throw new Exception("Esta farmácia não pode ser removida, pois sua fundação tem mais de um ano.");
             await _contextDrugstore.Delete(drugstore);
         }
+
+        public async Task<IEnumerable<DrugstoreViewModel>> GetAll() =>
+            (await _contextDrugstore.GetAll()).Select(x => new DrugstoreViewModel(x));
+
+        public async Task<DrugstoreViewModel> GetById(Guid id)
+        {
+            var drugstore = await _contextDrugstore.GetById(id);
+            if(drugstore == null)
+                throw new Exception("Farmácia não encontrada!");
+            return new DrugstoreViewModel(drugstore);
+        }       
 
         public async Task<IEnumerable<DrugstoreViewModel>> GetByName(string name, int take) =>
              (await _contextDrugstore.GetByName(name, take)).Select(x => new DrugstoreViewModel(x));
@@ -53,7 +64,7 @@ namespace IRT.Application.Services
         {
             var neighborhood = await _contextNeighborhood.GetById(id);
             if (neighborhood == null)
-                throw new ApiException("Neighborhood not found!");
+                throw new Exception("Bairro não encontrado!");
             return (await _contextDrugstore.GetByNeighborhood(id, flgRoundTheClock)).Select(x => new DrugstoreViewModel(x));
         }
 
@@ -61,15 +72,16 @@ namespace IRT.Application.Services
         {
             var drugstore = await _contextDrugstore.GetById(id);
             if (drugstore == null)
-                throw new ApiException("Drugstore not found!");
+                throw new Exception("Farmácia não encontrada!");
             if (await _contextDrugstore.CheckIfExists(drugstoreViewModel.Name))
-                throw new ApiException("Drugstore already exists!");
+                throw new Exception("Farmácia já existe!");
             await _contextDrugstore.Update(new Drugstore(
                     id,
                     drugstoreViewModel.Name,
                     drugstoreViewModel.RoundTheClock,
                     drugstoreViewModel.FoundationDate,
-                    drugstoreViewModel.NeighborhoodId));
+                    drugstoreViewModel.NeighborhoodId,
+                    drugstoreViewModel.Neighborhood));
             return drugstoreViewModel;
         }
 

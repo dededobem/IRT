@@ -14,6 +14,7 @@ namespace IRT.Application.ViewModels
             Name = drugstore.Name;
             RoundTheClock = drugstore.RoundTheClock;
             FoundationDate = drugstore.FoundationDate;
+            Neighborhood = drugstore.Neighborhood;
             NeighborhoodId = drugstore.NeighborhoodId;
 
             CanRemove = drugstore.CanRemove();
@@ -28,6 +29,7 @@ namespace IRT.Application.ViewModels
         public DateTime FoundationDate { get; set; }
         [Required]
         public Guid NeighborhoodId { get; set; }
+        public Neighborhood Neighborhood { get; set; }
         public bool CanRemove { get; private set; }
     }
 }

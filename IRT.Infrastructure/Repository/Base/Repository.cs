@@ -34,7 +34,7 @@ namespace IRT.Infrastructure.Repository.Base
 
         public virtual async Task<IEnumerable<T>> GetAll() => await _dbSet.ToListAsync();
 
-        public async Task<T> GetById(Guid id) => 
+        public virtual async Task<T> GetById(Guid id) => 
             await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task Update(T entity)

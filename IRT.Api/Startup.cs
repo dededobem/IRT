@@ -1,4 +1,5 @@
 using IRT.Api.Configurations;
+using IRT.Api.Configurations.Exceptions;
 using IRT.Infrastructure.Data;
 using IRT.Infrastructure.IoC;
 using IRT.Infrastructure.Util;
@@ -89,6 +90,8 @@ namespace IRT.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseDetailsExceptionHandler();
 
             app.UseHttpsRedirection();
 

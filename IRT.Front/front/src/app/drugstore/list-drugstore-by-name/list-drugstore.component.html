@@ -1,0 +1,78 @@
+<h1 id="tableLabel">Consultar Farmácias por nome</h1>
+<br>
+
+<div class="container">
+  <mat-form-field appearance="outline">
+    <mat-label>Consultar por Nome</mat-label>
+    <input type="text" matInput [(ngModel)]="requestDrugstore.name" [ngModelOptions]="{standalone: true}">
+    <button mat-button *ngIf="requestDrugstore.name" matSuffix mat-icon-button aria-label="Clear"
+      (click)="requestDrugstore.name=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Número de resultados</mat-label>
+    <input type="number" matInput [formControl]="maxResultsFormControl" [(ngModel)]="requestDrugstore.maxResults"
+      required>
+    <mat-error *ngIf="maxResultsFormControl.hasError('required')">
+      Campo obrigatório
+    </mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="isLoading || requestDrugstore.maxResults == null" 
+    class="btn" (click)="search()">Consultar</button>
+</div>
+
+<table mat-table [dataSource]="responseDrugstores" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Identificador </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Nome </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="flgRoundTheClock">
+    <th mat-header-cell *matHeaderCellDef> Funciona 24h? </th>
+    <td mat-cell *matCellDef="let element">
+      <div *ngIf="element.roundTheClock; else no">
+        Sim
+      </div>
+      <ng-template #no>
+        Não
+      </ng-template>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="foundationDate">
+    <th mat-header-cell *matHeaderCellDef> Data de Fundação </th>
+    <td mat-cell *matCellDef="let element"> {{element.foundationDate | date: 'dd/MM/yyyy'}} </td>
+  </ng-container>
+  <ng-container matColumnDef="neighborhood">
+    <th mat-header-cell *matHeaderCellDef> Bairro </th>
+    <td mat-cell *matCellDef="let element"> {{element.neighborhood.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="update">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <a routerLink="/drugstore/update/{{element.id}}" mat-icon-button placeholder="Atualizar farmácia">
+        <mat-icon color="primary">edit</mat-icon>
+      </a>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <a routerLink="/drugstore/delete/{{element.id}}" mat-icon-button>
+        <mat-icon color="warn">delete_forever</mat-icon>
+      </a>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <div *ngIf="!isLoading">
+    <tr class="mat-row" *matNoDataRow><span>Nenhuma farmácia para exibir!</span></tr>
+  </div>
+</table>
+
+<mat-card *ngIf="isLoading" class="card-loading">
+  <mat-spinner class="loading" [diameter]="50"></mat-spinner>
+</mat-card>

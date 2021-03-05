@@ -1,0 +1,46 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Painel</h1>
+
+  <mat-grid-list cols="2" rowHeight="350px">  
+
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.col1" [rowspan]="card.row1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Quantidade de farmácias por bairros que funcionam ou não 24h             
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <app-graphics></app-graphics>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>  
+
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.col2" [rowspan]="card.row2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Quantidade de farmácias por bairros            
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <app-pizza-graphic></app-pizza-graphic>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.col3" [rowspan]="card.row3">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Quantidade total de farmácias e bairros            
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <app-graphics-total></app-graphics-total>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>  
+
+  </mat-grid-list>
+</div>
