@@ -47,7 +47,7 @@ namespace IRT.Application.Services
                 {
                     new Claim(ClaimTypes.Name, user.Name)
                 }),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddDays(_configuration.GetValue<int>("Authentication:Expiration")),
                 SigningCredentials = credentials
             };
 
