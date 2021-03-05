@@ -12,7 +12,7 @@ import { RequestCreateDrugstore,
   ResponseDrugstores, 
   ResponseUpdateDrugstore 
 } from './drugstore.model';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

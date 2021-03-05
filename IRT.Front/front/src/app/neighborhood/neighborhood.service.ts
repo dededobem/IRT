@@ -9,7 +9,7 @@ import {
 } from './neighborhood.model';
 import { catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
