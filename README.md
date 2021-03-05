@@ -13,7 +13,7 @@ Desafio Técnico para preenchimento de vaga no Instituto Recôncavo de Tecnologi
 ## Executando a aplicação:
 
 - Configurar no projeto IRT.Api o arquivo appsettings.json, setando a ConnectionStrings para acesso a base de dados e a SecretKey (string secreta que é usada para assinatura do token para a autenticação via JWT).
-- No projeto IRT.Front, configurar a variável de ambiente "apiUrl" no arquivo environment.ts que se encontra localizado na pasta src/environments. Nesse arquivo deverá ser setado a Url da api.
+- No projeto IRT.Front, configurar a variável de ambiente "apiUrl" no arquivo environment.ts que se encontra localizada na pasta src/environments. Nesse arquivo deverá ser setado a Url da api.
 - Após esses passos, executar os comandos Add-Migration "nome da migration" e Update-Database na classLibrary IRT.Infrastructure. Esses comandos deverão criar o banco de dados para rodar a aplicação.
 - Após realizar todos esses passos, deverá ser acessado o seguinte endereço: "apiUrl"/swagger. Nele deverá ser criado um usuário através do endpoint /api/User.
 - Por fim, no projeto IRT.Front deverá ser executado o comando "npm install", para instalar os módulos do projeto, e logo depois rodar o comando "ng server -o".
