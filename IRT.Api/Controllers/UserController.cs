@@ -10,10 +10,7 @@ namespace IRT.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IAppUser _appUser;
-        public UserController(IAppUser appUser)
-        {
-            _appUser = appUser;
-        }
+        public UserController(IAppUser appUser) => _appUser = appUser;
 
         /// <summary>
         /// Cadastro de um novo usuário
@@ -23,9 +20,8 @@ namespace IRT.Api.Controllers
         // POST api/<UserController>
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody] UserViewModel dataUser)
-        {
-            return Ok(await _appUser.Add(dataUser));
-        }
+        public async Task<IActionResult> Post([FromBody] UserViewModel dataUser) =>
+            Ok(await _appUser.Add(dataUser));
+        
     }
 }

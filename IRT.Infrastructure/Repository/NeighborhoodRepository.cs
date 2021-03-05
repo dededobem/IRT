@@ -13,10 +13,7 @@ namespace IRT.Infrastructure.Repository
     {
         private readonly IRTDbContext _dbContext;
 
-        public NeighborhoodRepository(IRTDbContext context) : base(context)
-        {
-            _dbContext = context;
-        }
+        public NeighborhoodRepository(IRTDbContext context) : base(context) => _dbContext = context;
 
         public async Task<bool> CheckIfExists(string name) =>
             await _dbContext.Neighborhoods.AnyAsync(x => x.Name == name);

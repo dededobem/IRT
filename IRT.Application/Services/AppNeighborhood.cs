@@ -13,10 +13,8 @@ namespace IRT.Application.Services
     {        
         private readonly INeighborhoodRepository _contextNeighborhood;
 
-        public AppNeighborhood(INeighborhoodRepository contextNeighborhood)
-        {           
+        public AppNeighborhood(INeighborhoodRepository contextNeighborhood) => 
             _contextNeighborhood = contextNeighborhood;
-        }
         public async Task<NeighborhoodViewModel> Add(NeighborhoodViewModel neighborhoodViewModel) {
             if (await _contextNeighborhood.CheckIfExists(neighborhoodViewModel.Name))
                 throw new Exception("Bairro já cadastrado!");

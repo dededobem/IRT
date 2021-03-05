@@ -14,10 +14,7 @@ namespace IRT.Application.Services
     {
         private readonly IUserRepository _contextUser;
 
-        public AppUser(IUserRepository contextUser)
-        {
-            _contextUser = contextUser;
-        }
+        public AppUser(IUserRepository contextUser) => _contextUser = contextUser;
 
         public async Task<UserViewModel> Add(UserViewModel user)
         {

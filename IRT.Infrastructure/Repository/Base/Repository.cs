@@ -4,7 +4,6 @@ using IRT.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace IRT.Infrastructure.Repository.Base

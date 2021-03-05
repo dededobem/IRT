@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace IRT.Api.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class NeighborhoodController : ControllerBase
     {
         private readonly IAppNeighborhood _appNeighborhood;
@@ -46,7 +46,8 @@ namespace IRT.Api.Controllers
         /// <returns></returns>
         // POST api/<NeighborhoodController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] NeighborhoodViewModel neighborhood) => Ok(await _appNeighborhood.Add(neighborhood));
+        public async Task<IActionResult> Post([FromBody] NeighborhoodViewModel neighborhood) => 
+            Ok(await _appNeighborhood.Add(neighborhood));
         
     }
 }

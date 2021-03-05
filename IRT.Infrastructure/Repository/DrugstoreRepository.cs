@@ -14,10 +14,7 @@ namespace IRT.Infrastructure.Repository
     {
         private readonly IRTDbContext _dbContext;
 
-        public DrugstoreRepository(IRTDbContext context) : base(context)
-        {
-            _dbContext = context;
-        }
+        public DrugstoreRepository(IRTDbContext context) : base(context) => _dbContext = context;        
                 
         public async Task<bool> CheckIfExists(string name) =>
             await _dbContext.Drugstores.AnyAsync(x => x.Name == name);

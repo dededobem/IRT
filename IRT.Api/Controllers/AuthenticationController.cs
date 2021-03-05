@@ -12,10 +12,9 @@ namespace IRT.Api.Controllers
     {
         private readonly IAppAuthentication _appAuthentication;
 
-        public AuthenticationController(IAppAuthentication appAuthentication)
-        {
+        public AuthenticationController(IAppAuthentication appAuthentication) =>
             _appAuthentication = appAuthentication;
-        }
+
 
         /// <summary>
         /// Autenticar na aplicação
@@ -24,9 +23,8 @@ namespace IRT.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromBody] RequestAuthentication user)
-        {
-            return Ok(await _appAuthentication.Authenticate(user.Login, user.Password));
-        }        
+        public async Task<IActionResult> Authenticate([FromBody] RequestAuthentication user) =>
+            Ok(await _appAuthentication.Authenticate(user.Login, user.Password));
+
     }
 }
